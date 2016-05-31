@@ -30,9 +30,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Mostafa on 5/26/2016.
+ * this is the fragment used to view grid of movies
  */
 public class MainActivityFragment extends Fragment {
-    private GridView gridView;
 
     private MoviesPicassoAdapter moviesAdapter;
     ArrayList<String> imageUrls = new ArrayList<>();
@@ -116,14 +116,14 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        gridView = (GridView) v.findViewById(R.id.gridView);
+        GridView gridView = (GridView) v.findViewById(R.id.gridView);
 
         moviesAdapter = new MoviesPicassoAdapter(getActivity(), R.layout.grid_item_layout, imageUrls);
         gridView.setAdapter(moviesAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 FilmItem item = allMovies.get(position);
-                if (mTwoPane == true) {
+                if (mTwoPane) {
                     Bundle arguments = new Bundle();
 
                     arguments.putString("id", item.getId());

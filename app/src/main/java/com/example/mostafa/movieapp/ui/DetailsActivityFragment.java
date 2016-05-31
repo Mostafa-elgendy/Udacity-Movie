@@ -33,9 +33,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Mostafa on 5/26/2016.
+ * Details fragment
  */
 public class DetailsActivityFragment extends Fragment {
-    static final String DETAIL_URI = "URI";
     ImageButton favourite;
     ListView trailList;
     ListView reviewsList;
@@ -68,8 +68,6 @@ public class DetailsActivityFragment extends Fragment {
         FetchReviewTask f = new FetchReviewTask();
         f.execute(id);
     }
-
-    Uri mUri;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,7 +105,7 @@ public class DetailsActivityFragment extends Fragment {
                 public void onClick(View v) {
                     MoviesDatabaseHandler db = new MoviesDatabaseHandler(getActivity());
                     boolean state = db.AddMovie(id, title, path, overview, vote, date);
-                    if (state == true) {
+                    if (state) {
                         AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
                         build.setTitle("Add Movie To Favourite");
                         build.setMessage("Movie Added To Favourite Successfully");
