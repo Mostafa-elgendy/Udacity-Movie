@@ -10,6 +10,7 @@ import com.example.mostafa.movieapp.R;
 
 /**
  * Created by Mostafa on 5/26/2016.
+ * Setting activity
  */
 public class SettingActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 

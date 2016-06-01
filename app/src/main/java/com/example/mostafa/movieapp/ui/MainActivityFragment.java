@@ -37,7 +37,8 @@ public class MainActivityFragment extends Fragment {
     private MoviesPicassoAdapter moviesAdapter;
     ArrayList<String> imageUrls = new ArrayList<>();
     ArrayList<FilmItem> allMovies = new ArrayList<>();
-
+    int favouriteCount = 0;
+    String type;
     boolean mTwoPane;
 
     public MainActivityFragment() {
@@ -69,6 +70,17 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //this is used to check if you select favourite and the favourite is empty
+        if (favouriteCount <= 0 && type.equals("favourite")) {
+
+            FetchMoviesTask f = new FetchMoviesTask();
+            f.execute("popular");
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
     }
@@ -86,11 +98,12 @@ public class MainActivityFragment extends Fragment {
 
     private void getMovies() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String type = prefs.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_popular));
+        type = prefs.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_popular));
         if (type != null && type.equals("favourite")) {
             MoviesDatabaseHandler db = new MoviesDatabaseHandler(getActivity());
             allMovies = db.getMovies();
-            if (allMovies.size() > 0) {
+            favouriteCount = allMovies.size();
+            if (favouriteCount > 0) {
                 moviesAdapter.clear();
                 for (int i = 0; i < allMovies.size(); i++) {
                     moviesAdapter.add(allMovies.get(i).getPath());

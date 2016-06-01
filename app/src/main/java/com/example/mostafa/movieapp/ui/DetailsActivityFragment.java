@@ -186,7 +186,7 @@ public class DetailsActivityFragment extends Fragment {
             Log.d(LOG_TAG, result.toString());
             String[] VideoUrls = new String[allVideos.size()];
             for (int i = 0; i < VideoUrls.length; i++) {
-                VideoUrls[i] = "Trailer " + (i + 1);// allVideos.get(i).getSite();
+                VideoUrls[i] = "Trailer " + (i + 1);
             }
             return VideoUrls;
         }
