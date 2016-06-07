@@ -42,7 +42,6 @@ public class MainActivityFragment extends Fragment {
     boolean mTwoPane;
 
     public MainActivityFragment() {
-
         setHasOptionsMenu(true);
     }
 
@@ -54,7 +53,6 @@ public class MainActivityFragment extends Fragment {
             // (res/layout-sw600dp). If this view is present, then the activity should be
             // in two-pane mode.
             mTwoPane = true;
-
         }
     }
 

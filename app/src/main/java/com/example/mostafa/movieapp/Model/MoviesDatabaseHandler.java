@@ -83,7 +83,6 @@ public class MoviesDatabaseHandler extends SQLiteOpenHelper {
         return favourite;
     }
 
-
     //Select data for the given id
     private boolean getMovieById(String movieId) {
         SQLiteDatabase db = this.getWritableDatabase();
