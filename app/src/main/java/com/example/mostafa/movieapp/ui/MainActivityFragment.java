@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,8 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.example.mostafa.movieapp.Model.FilmData;
 import com.example.mostafa.movieapp.Model.FilmItem;
@@ -101,11 +101,15 @@ public class MainActivityFragment extends Fragment {
             MoviesDatabaseHandler db = new MoviesDatabaseHandler(getActivity());
             allMovies = db.getMovies();
             favouriteCount = allMovies.size();
+
             if (favouriteCount > 0) {
-                moviesAdapter.clear();
+            ArrayList<String> moviesUrls=new ArrayList<>();
+              //  moviesAdapter.clear();
                 for (int i = 0; i < allMovies.size(); i++) {
-                    moviesAdapter.add(allMovies.get(i).getPath());
+                    moviesUrls.add(allMovies.get(i).getPath());
+                    //moviesAdapter.add(allMovies.get(i).getPath());
                 }
+                moviesAdapter=new MoviesPicassoAdapter(getActivity(),moviesUrls);
             } else {
                 AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
                 build.setTitle("View Movies From Favourite");
@@ -127,11 +131,12 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        GridView gridView = (GridView) v.findViewById(R.id.gridView);
-
-        moviesAdapter = new MoviesPicassoAdapter(getActivity(), R.layout.grid_item_layout, imageUrls);
+        RecyclerView gridView = (RecyclerView) v.findViewById(R.id.recycler_view);
+GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        gridView.setLayoutManager(gridLayoutManager);
+        moviesAdapter = new MoviesPicassoAdapter(getActivity(),imageUrls);
         gridView.setAdapter(moviesAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     /*   gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 FilmItem item = allMovies.get(position);
                 if (mTwoPane) {
@@ -163,7 +168,7 @@ public class MainActivityFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
         return v;
     }
 
@@ -196,11 +201,14 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] result) {
             if (result != null) {
-                moviesAdapter.clear();
+                //moviesAdapter.clear();
+                ArrayList<String> moviesUrls=new ArrayList<>();
                 for (String movieStr : result) {
+                    moviesUrls.add(movieStr);
                     Log.d(LOG_TAG, movieStr);
-                    moviesAdapter.add(movieStr);
+                  //  moviesAdapter.add(movieStr);
                 }
+                moviesAdapter=new MoviesPicassoAdapter(getActivity(),moviesUrls);
                 dialog.hide();
                 dialog.dismiss();
             }
