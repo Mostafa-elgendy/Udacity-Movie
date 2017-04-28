@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by Mostafa on 5/28/2016.
  * This is custom Array Adapter which will store the data
- * Updated 28/04/2017
+ * Updated 28/04/2017 by adding Recycle View
  */
 public class MoviesPicassoAdapter extends RecyclerView.Adapter<MoviesPicassoAdapter.MyViewHolder> {
     private Context context;
