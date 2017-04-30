@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -103,13 +104,13 @@ public class MainActivityFragment extends Fragment {
             favouriteCount = allMovies.size();
 
             if (favouriteCount > 0) {
-            ArrayList<String> moviesUrls=new ArrayList<>();
-              //  moviesAdapter.clear();
+                ArrayList<String> moviesUrls = new ArrayList<>();
+                //  moviesAdapter.clear();
                 for (int i = 0; i < allMovies.size(); i++) {
                     moviesUrls.add(allMovies.get(i).getPath());
                     //moviesAdapter.add(allMovies.get(i).getPath());
                 }
-                moviesAdapter=new MoviesPicassoAdapter(getActivity(),moviesUrls);
+                moviesAdapter = new MoviesPicassoAdapter(getActivity(), moviesUrls);
             } else {
                 AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
                 build.setTitle("View Movies From Favourite");
@@ -125,16 +126,17 @@ public class MainActivityFragment extends Fragment {
         }
 
     }
-
+    RecyclerView gridView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        RecyclerView gridView = (RecyclerView) v.findViewById(R.id.recycler_view);
-GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        gridView = (RecyclerView) v.findViewById(R.id.recycler_view);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridView.setLayoutManager(gridLayoutManager);
-        moviesAdapter = new MoviesPicassoAdapter(getActivity(),imageUrls);
+        gridView.setItemAnimator(new DefaultItemAnimator());
+        moviesAdapter = new MoviesPicassoAdapter(getActivity(), imageUrls);
         gridView.setAdapter(moviesAdapter);
      /*   gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -202,13 +204,15 @@ GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
         protected void onPostExecute(String[] result) {
             if (result != null) {
                 //moviesAdapter.clear();
-                ArrayList<String> moviesUrls=new ArrayList<>();
+                ArrayList<String> moviesUrls = new ArrayList<>();
                 for (String movieStr : result) {
+
                     moviesUrls.add(movieStr);
                     Log.d(LOG_TAG, movieStr);
-                  //  moviesAdapter.add(movieStr);
+                    //  moviesAdapter.add(movieStr);
                 }
-                moviesAdapter=new MoviesPicassoAdapter(getActivity(),moviesUrls);
+                moviesAdapter = new MoviesPicassoAdapter(getActivity(), moviesUrls);
+                gridView.setAdapter(moviesAdapter);
                 dialog.hide();
                 dialog.dismiss();
             }

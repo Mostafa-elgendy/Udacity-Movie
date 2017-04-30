@@ -19,7 +19,7 @@
             android:clipToPadding="false"
             android:paddingBottom="28dp"
             android:scrollbarStyle="insideOverlay"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+             />
 
 
         <!-- <GridView

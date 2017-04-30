@@ -17,41 +17,17 @@ import java.util.ArrayList;
 /**
  * Created by Mostafa on 5/28/2016.
  * This is custom Array Adapter which will store the data
+ * Updated 28/04/2017 by adding Recycle View
  */
 public class MoviesPicassoAdapter extends RecyclerView.Adapter<MoviesPicassoAdapter.MyViewHolder> {
     private Context context;
-    private LayoutInflater inflater;
-    private int layoutResourceId;
-
     private ArrayList<String> imageUrls;
 
-    public MoviesPicassoAdapter(Context context,ArrayList<String> imageUrls) {
-        this.context=context;
-        this.imageUrls = imageUrls;
-        Log.e("Size","Size"+imageUrls.size()+"  "+getItemCount());
-
-    }
-/*    public MoviesPicassoAdapter(Context context, int layoutResourceId, ) {
-        super(context, layoutResourceId, imageUrls);
+    public MoviesPicassoAdapter(Context context, ArrayList<String> imageUrls) {
         this.context = context;
-        this.layoutResourceId = layoutResourceId;
-        inflater = LayoutInflater.from(context);
+        this.imageUrls = imageUrls;
+        Log.e("Size", "Size" + imageUrls.size() + "  " + getItemCount());
     }
-*/
-  /*  @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (null == convertView) {
-            convertView = inflater.inflate(layoutResourceId, parent, false);
-
-        }
-        ImageView image = (ImageView) convertView.findViewById(R.id.image);
-        Picasso.with(context)
-                .load(imageUrls.get(position))
-                .fit()
-                .into(image);
-        return convertView;
-    }*/
-
 
     /**
      * View holder class
@@ -78,7 +54,7 @@ public class MoviesPicassoAdapter extends RecyclerView.Adapter<MoviesPicassoAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.FilmTitle.setText("Title");
-     Log.e("enter","Enter");
+        Log.e("enter", "Enter");
         Picasso.with(context)
                 .load(imageUrls.get(position))
                 .fit()
@@ -91,3 +67,26 @@ public class MoviesPicassoAdapter extends RecyclerView.Adapter<MoviesPicassoAdap
         return imageUrls.size();
     }
 }
+    /*    public MoviesPicassoAdapter(Context context, int layoutResourceId, ) {
+        super(context, layoutResourceId, imageUrls);
+        this.context = context;
+        this.layoutResourceId = layoutResourceId;
+        inflater = LayoutInflater.from(context);
+    }
+*/
+  /*  @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (null == convertView) {
+            convertView = inflater.inflate(layoutResourceId, parent, false);
+
+        }
+        ImageView image = (ImageView) convertView.findViewById(R.id.image);
+        Picasso.with(context)
+                .load(imageUrls.get(position))
+                .fit()
+                .into(image);
+        return convertView;
+    }*/
+
+
+
